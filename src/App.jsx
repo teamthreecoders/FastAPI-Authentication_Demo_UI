@@ -148,7 +148,9 @@ function AppShell() {
 
         {/* Desktop nav (hidden on mobile) */}
         <div className="hidden md:flex items-center gap-1">
-          <NavLink to="/" end className={navCls}>Home</NavLink>
+          <NavLink to={authed ? "/dashboard" : "/"} end={!authed} className={navCls}>
+            {authed ? "Dashboard" : "Home"}
+          </NavLink>
           <NavLink to="/api-docs" className={navCls}>Docs</NavLink>
           <NavLink to="/api-playground" className={navCls}>Playground</NavLink>
           <a href="/architecture.html" target="_blank" rel="noopener noreferrer"
@@ -157,10 +159,7 @@ function AppShell() {
           </a>
 
           {authed ? (
-            <>
-              <NavLink to="/dashboard" className={navCls}>Dashboard</NavLink>
-              <ProfileDropdown user={user} onLogout={handleLogout} />
-            </>
+            <ProfileDropdown user={user} onLogout={handleLogout} />
           ) : (
             <>
               <button onClick={() => openModal("login")}
@@ -195,9 +194,11 @@ function AppShell() {
         <div className="md:hidden fixed top-[57px] inset-x-0 bottom-0 z-20 bg-[#020817] overflow-y-auto flex flex-col fade-in-down">
           {/* Nav links */}
           <div className="flex-1 px-4 pt-4 space-y-1">
-            <NavLink to="/" end className={mobileCls}>
-              <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">🏠</span>
-              Home
+            <NavLink to={authed ? "/dashboard" : "/"} end={!authed} className={mobileCls}>
+              <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">
+                {authed ? "📊" : "🏠"}
+              </span>
+              {authed ? "Dashboard" : "Home"}
             </NavLink>
             <NavLink to="/api-docs" className={mobileCls}>
               <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">📋</span>
@@ -216,10 +217,6 @@ function AppShell() {
             {authed && (
               <>
                 <div className="h-px bg-[#1e3a58]/40 my-2" />
-                <NavLink to="/dashboard" className={mobileCls}>
-                  <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">📊</span>
-                  Dashboard
-                </NavLink>
                 <NavLink to="/my-profile" className={mobileCls}>
                   <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">👤</span>
                   My Profile
