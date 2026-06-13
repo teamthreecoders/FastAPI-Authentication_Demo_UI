@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 /* ─── Update these with your real URLs ─────── */
 const AUTHOR = {
-  name:     "Your Name",          // 🔧 Replace
+  name:     "Ayan Pradhan",          // 🔧 Replace
   linkedin: "https://www.linkedin.com/in/ayan-pradhan-160471252/", // 🔧 Replace
-  github:   "https://github.com/your-username",     // 🔧 Replace
+  github:   "https://github.com/knowaboutayan",     // 🔧 Replace
   initials: "YN",                  // 🔧 Replace
 };
 
