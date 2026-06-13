@@ -1,3 +1,5 @@
+const BASE = "https://authentication-five-indol.vercel.app";
+
 // Relative URLs — Vite proxies /v1/* and /health → http://127.0.0.1:8000
 const TOKEN_KEY = "auth_token";
 
@@ -15,10 +17,10 @@ async function request(method, path, body) {
   if (body) opts.body = JSON.stringify(body);
 
   try {
-    const res = await fetch(path, opts);
+    const res = await fetch(`${BASE}${path}`, opts);
     return await res.json();
   } catch {
-    return { success: false, message: "Network error — is the backend running on :8000?" };
+    return { success: false, message: "Network error — check your connection." };
   }
 }
 
