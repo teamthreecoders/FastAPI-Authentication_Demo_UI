@@ -1,4 +1,4 @@
-const BASE = "https://authentication-five-indol.vercel.app";
+const BASE = "https://authentication-api-zeta.vercel.app";
 
 // Relative URLs — Vite proxies /v1/* and /health → http://127.0.0.1:8000
 const TOKEN_KEY = "auth_token";

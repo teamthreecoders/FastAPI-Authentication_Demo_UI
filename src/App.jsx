@@ -151,6 +151,10 @@ function AppShell() {
           <NavLink to="/" end className={navCls}>Home</NavLink>
           <NavLink to="/api-docs" className={navCls}>Docs</NavLink>
           <NavLink to="/api-playground" className={navCls}>Playground</NavLink>
+          <a href="/architecture.html" target="_blank" rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent transition-all duration-150">
+            Architecture
+          </a>
 
           {authed ? (
             <>
@@ -203,6 +207,11 @@ function AppShell() {
               <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">⚡</span>
               Playground
             </NavLink>
+            <a href="/architecture.html" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-base font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+              <span className="w-9 h-9 rounded-xl bg-[#0c1929] border border-[#1e3a58] flex items-center justify-center text-base shrink-0">🏗</span>
+              Architecture
+            </a>
 
             {authed && (
               <>
