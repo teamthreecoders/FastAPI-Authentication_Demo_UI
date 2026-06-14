@@ -85,7 +85,7 @@ function JsonView({ json }) {
     .replace(/:\s*(-?\d+\.?\d*)/g,': <span style="color:#fbbf24">$1</span>')
     .replace(/:\s*(true|false)/g,': <span style="color:#f472b6">$1</span>')
     .replace(/:\s*null/g,': <span style="color:#94a3b8">null</span>');
-  return <pre className="text-xs font-mono text-slate-300 leading-relaxed overflow-x-auto" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <pre className="text-xs font-mono text-slate-300 leading-relaxed whitespace-pre-wrap break-all" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 function CopyBtn({ text }) {
@@ -98,7 +98,44 @@ function CopyBtn({ text }) {
   );
 }
 
-function ResponseBox({ result }) {
+function ResponseBox({ result, loading }) {
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (!loading) { setElapsed(0); return; }
+    const start = Date.now();
+    const id = setInterval(() => setElapsed(Date.now() - start), 100);
+    return () => clearInterval(id);
+  }, [loading]);
+
+  const fmtMs = ms => ms < 1000 ? `${ms}ms` : `${(ms / 1000).toFixed(1)}s`;
+
+  if (loading) return (
+    <div className="flex flex-col h-full min-h-44 overflow-hidden">
+      {/* sweeping progress bar */}
+      <div className="h-[2px] w-full progress-sweep shrink-0" />
+      <div className="p-5 space-y-4 flex-1">
+        {/* status bar skeleton */}
+        <div className="flex items-center gap-2">
+          <div className="skeleton h-5 w-10 rounded-lg" />
+          <div className="skeleton h-3 w-14" />
+          <div className="skeleton h-3 w-6" />
+          <div className="skeleton h-3 w-16" />
+          <div className="ml-auto skeleton h-5 w-10 rounded-lg" />
+        </div>
+        {/* json body skeleton — varied widths feel like real content */}
+        <div className="space-y-2.5 pt-1">
+          {[55, 80, 65, 90, 45, 70, 38].map((w, i) => (
+            <div key={i} className="skeleton h-[11px]" style={{ width: `${w}%`, animationDelay: `${i * 60}ms` }} />
+          ))}
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-5 pb-4">
+        <p className="text-[10px] text-slate-600 tracking-wide">Fetching response…</p>
+        <span className="text-[11px] font-mono text-slate-500 tabular-nums">{fmtMs(elapsed)}</span>
+      </div>
+    </div>
+  );
   if (!result) return (
     <div className="flex flex-col items-center justify-center h-full min-h-40 text-center px-4">
       <div className="w-10 h-10 rounded-xl bg-[#0a1628] border border-[#1e3a58]/50 flex items-center justify-center text-slate-700 mb-2 text-lg">▶</div>
@@ -318,7 +355,7 @@ function PlayEndpoint({ ep, baseUrl, authToken, challengeToken, onToken, onChall
           </div>
           <div className="min-h-44 flex flex-col">
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 px-5 pt-4 pb-2">Response</p>
-            <ResponseBox result={result} />
+            <ResponseBox result={result} loading={loading} />
           </div>
         </div>
       )}

@@ -21,6 +21,7 @@ async function request(method, path, body) {
     return await res.json();
   } catch {
     return { success: false, message: "Network error — check your connection." };
+
   }
 }
 
