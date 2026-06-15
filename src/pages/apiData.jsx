@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 /* ── Config ───────────────────────────────── */
 export const REPO_URL = "https://github.com/teamthreecoders/AUTHENTICATION_API"; 
 export const SERVERS = [
-  { label: "Local",      url: "http://127.0.0.1:8000" },
   { label: "Production", url: "https://authentication-api-zeta.vercel.app" },
+  { label: "Local",      url: "http://127.0.0.1:8000" },
 ];
 export const BASE_URL = "https://authentication-api-zeta.vercel.app";
 
